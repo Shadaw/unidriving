@@ -7,10 +7,20 @@ interface Request {
   name: string;
   email: string;
   password: string;
+  cpf: string;
+  cellphone: string;
+  cnh: string;
 }
 
 export default class CreateUsersService {
-  public async execute({ name, email, password }: Request): Promise<User> {
+  public async execute({
+    name,
+    email,
+    password,
+    cpf,
+    cellphone,
+    cnh,
+  }: Request): Promise<User> {
     const usersRepository = getRepository(User);
 
     const checkUserExists = await usersRepository.findOne({ where: { email } });
@@ -25,6 +35,9 @@ export default class CreateUsersService {
       name,
       email,
       password: hashedPassword,
+      cpf,
+      cellphone,
+      cnh,
     });
 
     await usersRepository.save(user);

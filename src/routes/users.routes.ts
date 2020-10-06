@@ -6,7 +6,7 @@ const usersRouter = Router();
 
 usersRouter.post('/', async (request, response) => {
   try {
-    const { name, email, password } = request.body;
+    const { name, email, password, cnh, cpf, cellphone } = request.body;
 
     const createUser = new CreateUsersService();
 
@@ -14,6 +14,9 @@ usersRouter.post('/', async (request, response) => {
       name,
       email,
       password,
+      cnh,
+      cellphone,
+      cpf,
     });
 
     delete user.password;
