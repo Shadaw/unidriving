@@ -20,6 +20,15 @@ class User {
   @Column()
   password: string;
 
+  @Column()
+  cpf: string;
+
+  @Column()
+  cellphone: string;
+
+  @Column()
+  cnh: string;
+
   @CreateDateColumn()
   created_at: Date;
 
