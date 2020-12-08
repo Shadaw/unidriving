@@ -14,7 +14,16 @@ announcementsRouter.use(ensureAuthenticated);
 
 announcementsRouter.get('/', async (request, response) => {
   try {
+    const { id } = request.user;
+    const { filter } = request.query;
     const announcementsRepository = getRepository(Announcement);
+
+    if (filter) {
+      const announcements = await announcementsRepository.find({
+        where: { user_id: id },
+      });
+      return response.json(announcements);
+    }
 
     const announcements = await announcementsRepository.find();
 
