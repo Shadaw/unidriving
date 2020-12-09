@@ -18,7 +18,7 @@ announcementsRouter.get('/', async (request, response) => {
     const { filter } = request.query;
     const announcementsRepository = getRepository(Announcement);
 
-    if (filter) {
+    if (!filter) {
       const announcements = await announcementsRepository.find({
         where: { user_id: id },
       });
