@@ -5,7 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   JoinColumn,
-  ManyToMany,
+  ManyToOne,
 } from 'typeorm';
 
 import User from './User';
@@ -18,7 +18,7 @@ class Announcement {
   @Column()
   user_id: string;
 
-  @ManyToMany(() => User)
+  @ManyToOne(() => User, { eager: true })
   @JoinColumn({ name: 'user_id' })
   user: User;
 
