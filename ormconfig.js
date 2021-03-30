@@ -1,6 +1,9 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED='0'
+
 module.exports = {
   "type": "postgres",
   "url": process.env.DATABASE_URL,
+  "ssl": true,
   "entities": [
     process.env.NODE_ENV === 'production' ? './dist/models/*.js' : "./src/models/*.ts"
   ],
