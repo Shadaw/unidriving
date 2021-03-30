@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { getRepository } from 'typeorm';
+import announcementsView from '../views/announcements_view';
 
 import Announcement from '../models/Announcement';
 
@@ -18,17 +19,19 @@ announcementsRouter.get('/', async (request, response) => {
     const { filter } = request.query;
     const announcementsRepository = getRepository(Announcement);
 
-    if (!filter) {
+    if (filter) {
       const announcements = await announcementsRepository.find({
-        where: { user_id: id },
-        select: ['user'],
+        relations: ['user'],
       });
-      return response.json(announcements);
+
+      return response.json(announcementsView.renderMany(announcements));
     }
 
-    const announcements = await announcementsRepository.find();
-
-    return response.json(announcements);
+    const announcements = await announcementsRepository.find({
+      where: { user_id: id },
+      relations: ['user'],
+    });
+    return response.json(announcementsView.renderMany(announcements));
   } catch (err) {
     return response.status(400).json({ error: err.message });
   }
